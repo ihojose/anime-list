@@ -38,11 +38,11 @@
 </head>
 <body ng-controller="list">
 
-<div class="container">
+<div class="uk-container">
 
   <h1 class="uk-heading-line uk-text-center"><span>Lista de Anime</span></h1>
 
-  <div class="uk-grid-small uk-child-width-expand@s" ng-if="!loading" uk-grid>
+  <div class="uk-column-1-2@s uk-column-1-3@m uk-column-1-4@l" ng-if="!loading">
     <div ng-repeat="item in animeList">
       <div class="uk-card uk-card-default">
         <div class="uk-card-media-top">
