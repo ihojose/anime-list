@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html ng-app="anime" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Animes</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- icon -->
+  <link rel="apple-touch-icon" sizes="57x57" href="images/icon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="images/icon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="images/icon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="images/icon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="images/icon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="images/icon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="images/icon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="images/icon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/icon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/icon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/icon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="images/icon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/icon/favicon-16x16.png">
+
+  <!-- fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+
+  <!-- manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- theme color -->
+  <meta name="theme-color" content="#1976d2">
+  <meta name="msapplication-TileColor" content="#1976d2">
+  <meta name="msapplication-TileImage" content="images/icon/ms-icon-144x144.png">
+
+  <!-- styles -->
+  <link href="uikit.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+<body ng-controller="list">
+
+<div class="container">
+
+  <h1 class="uk-heading-line uk-text-center"><span>Lista de Anime</span></h1>
+
+  <div class="uk-grid-small uk-child-width-expand@s" ng-if="!loading" uk-grid>
+    <div ng-repeat="item in animeList">
+      <div class="uk-card uk-card-default">
+        <div class="uk-card-media-top">
+          <img src="{{ item.attributes.posterImage.large }}" alt="">
+        </div>
+        <div class="uk-card-body">
+          <h3 class="uk-card-title">{{ item.attributes.titles.en_jp }}</h3>
+          <p>{{ item.attributes.titles.ja_jp }}</p>
+          <button class="uk-button uk-button-primary uk-width-large"
+                  ng-click="openDetails(item)"
+                  type="button"
+                  uk-toggle="target: #details">
+            Ver Detalles
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="details" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+      <h2 class="uk-modal-title">
+        {{ oneDetails.attributes.titles.en_jp }}<br>
+        <small>{{ oneDetails.attributes.titles.ja_jp }}</small>
+      </h2>
+      <div class="uk-card-media-top">
+        <img src="{{ oneDetails.attributes.coverImage.original }}" alt="">
+      </div>
+      <p>
+        <strong>Rating:</strong> {{ oneDetails.attributes.averageRating }}<br>
+        <strong>Episodios:</strong> {{ oneDetails.attributes.episodeCount }}<br>
+      </p>
+      <p>{{ oneDetails.attributes.description }}</p>
+      <p class="uk-text-right">
+        <button class="uk-button uk-button-default uk-modal-close" type="button">Cerrar</button>
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<!-- scripts -->
+<script src="angular.min.js"></script>
+<script src="uikit.min.js"></script>
+<script src="uikit-icons.min.js"></script>
+<script src="main.js"></script>
+<script>
+    if ( 'serviceWorker' in navigator ) {
+        window.addEventListener( 'load', () => {
+            navigator.serviceWorker.register( '/service-worker.js' )
+                .then( ( reg ) => {
+                    console.log( 'Service worker registered.', reg );
+                } );
+        } );
+    }
+</script>
+
+<noscript>Please enable JavaScript to continue using this application.</noscript>
+</body>
+</html>
